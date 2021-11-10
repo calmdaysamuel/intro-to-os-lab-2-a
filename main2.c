@@ -14,16 +14,22 @@ void  main(void)
      if (pid == 0) 
           ChildProcess();
      else {
-       pid= fork();
-       if (pid == 0) {
+       pid_t pid2;
+       pid2 = fork();
+       if (pid2 == 0) {
          ChildProcess();
        }
           ParentProcess();
   
            int status;
-           wait(status);
+           int status2;
+           
+           waitpid(pid, status);
            printf("   *** Child Pid: %d has completed ***\n", pid);
-       
+           waitpid(pid2, status2);
+           printf("   *** Child Pid: %d has completed ***\n", pid2);
+           
+           
      }
 }
 
